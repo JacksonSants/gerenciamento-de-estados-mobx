@@ -1,43 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:panucci_delivery/store/item_store.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
-class Contador extends StatefulWidget {
+class Contador extends StatelessWidget {
 Contador({ Key? key }) : super(key: key);
-
-  @override
-  State<Contador> createState() => _ContadorState();
-}
-
-class _ContadorState extends State<Contador> {
-  int valorContador = 0;
+  final ItemStore itemStore = ItemStore();
 
   @override
   Widget build(BuildContext context){
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        InkWell(
-          borderRadius: BorderRadius.circular(20),
-          onTap: () {
-            setState(() {
-              if(valorContador > 0){
-                valorContador --;
-              }
-
-            });
-          },
-          child: const Icon(Icons.remove_circle_outline, size: 20,),
-        ),
-        Text(valorContador.toString()),
-        InkWell(
-          borderRadius: BorderRadius.circular(20),
-          onTap: () {
-            setState(() {
-              valorContador ++;
-            });
-          },
-          child: const Icon(Icons.add_circle_outline, size: 20,),
-        ),
-      ],
+    return Observer(
+      builder: (_) => Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          InkWell(
+            borderRadius: BorderRadius.circular(20),
+            onTap: () {
+                if(itemStore.valorContador > 0){
+                  itemStore.removeItem();
+                }
+            },
+            child: const Icon(Icons.remove_circle_outline, size: 20,),
+          ),
+          Text(itemStore.valorContador.toString()),
+          InkWell(
+            borderRadius: BorderRadius.circular(20),
+            onTap: () {
+              itemStore.addItem();
+            },
+            child: const Icon(Icons.add_circle_outline, size: 20,),
+          ),
+        ],
+      ),
     );
   }
 }
