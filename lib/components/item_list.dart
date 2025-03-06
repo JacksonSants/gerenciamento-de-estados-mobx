@@ -18,7 +18,7 @@ class ItemList extends StatelessWidget {
         child: ListView.builder(
           itemBuilder: (context, index) {
             if(cardapio[index].categoria == categoria) {
-              return Cartao(item: cardapio[index]);
+              return Cartao(currentItem: cardapio[index]);
             } else {
               return Container();
             }

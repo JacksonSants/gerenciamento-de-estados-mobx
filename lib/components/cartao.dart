@@ -4,8 +4,8 @@ import 'package:panucci_delivery/components/contador.dart';
 import '../models/item.dart';
 
 class Cartao extends StatelessWidget {
-const Cartao({ Key? key, required this.item }) : super(key: key);
-final Item item;
+  const Cartao({ Key? key, required this.currentItem }) : super(key: key);
+  final Item currentItem;
 
   @override
   Widget build(BuildContext context){
@@ -19,7 +19,7 @@ final Item item;
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Image(
-              image: AssetImage(item.uri),
+              image: AssetImage(currentItem.uri),
               width: double.infinity,
               height: 50,
               fit: BoxFit.cover,
@@ -31,13 +31,13 @@ final Item item;
                 children: <Widget>[
                   Padding(
                     padding: EdgeInsets.only(bottom: 8.0),
-                    child: Text(item.nome, style: TextStyle(fontWeight: FontWeight.w600),),
+                    child: Text(currentItem.nome, style: TextStyle(fontWeight: FontWeight.w600),),
                   ),
                   Padding(
                     padding: EdgeInsets.only(bottom: 8.0),
-                    child: Text("R\$ ${item.preco.toStringAsFixed(2)}"),
+                    child: Text("R\$ ${currentItem.preco.toStringAsFixed(2)}"),
                   ),
-                  Contador(),
+                  Contador(currentItem: currentItem),
                 ],
               ),
             ),
