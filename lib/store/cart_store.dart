@@ -9,6 +9,9 @@ abstract class _CartStore with Store {
   @observable
   List<Item> items = ObservableList<Item>();
 
+  @observable
+  double purchaseTotal = 0;
+
   @computed
   int get quantidyItem => items.length;
 
@@ -18,10 +21,20 @@ abstract class _CartStore with Store {
   @action
   void addCart(Item item) {
     items.add(item);
+    updatePurchase();
   }
 
   @action
   void removeCart(Item item){
     items.remove(item);
+    updatePurchase();
+  }
+
+  @action
+  void updatePurchase(){
+    purchaseTotal = 0;
+    for(var i = 0; i < items.length; i++){
+      purchaseTotal += items[i].preco;
+    }
   }
 }

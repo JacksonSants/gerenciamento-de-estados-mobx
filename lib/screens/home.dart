@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:panucci_delivery/components/item_list.dart';
+import 'package:panucci_delivery/screens/checkout.dart';
 import 'package:panucci_delivery/store/cart_store.dart';
 import 'package:provider/provider.dart';
 import '../components/categoria_text.dart';
@@ -14,6 +15,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cartStore = Provider.of<CartStore>(context, listen: false);
+    final BuildContext homeContext = context;
     return SafeArea(
       child: Scaffold(
         body: CustomScrollView(
@@ -41,10 +43,15 @@ class Home extends StatelessWidget {
                 alignment: Alignment.bottomCenter,
                 child: Observer(
                   builder: (_) =>
-
                       !cartStore.emptyList ? InkWell(
                     onTap: () {
-                  
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (builder) => Checkout(homeContext: homeContext),
+                        ),
+                      );
+
                     },
                     child: Ink(
                         width: double.infinity,
@@ -92,7 +99,7 @@ class Home extends StatelessWidget {
                               Align(
                                 alignment: Alignment.centerRight,
                                 child: Text(
-                                  "R\$ 00,00",
+                                  "R\$ ${cartStore.purchaseTotal.toStringAsFixed(2)}",
                                   style: TextStyle(
                                     fontSize: 16,
                                     color:

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:panucci_delivery/components/order_item.dart';
+import 'package:panucci_delivery/store/cart_store.dart';
+import 'package:provider/provider.dart';
 import '../components/payment_method.dart';
 import '../components/payment_total.dart';
 
@@ -8,6 +11,7 @@ class Checkout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final CartStore cartStore = Provider.of<CartStore>(homeContext, listen: false);
     return SafeArea(
       child: Scaffold(
         body: Padding(
@@ -25,8 +29,9 @@ class Checkout extends StatelessWidget {
               ),
               SliverList(
                   delegate: SliverChildBuilderDelegate((context, index) {
+                    return OrderItem(item: cartStore.items[index]);
                   },
-                      childCount: 1)),
+                      childCount: cartStore.items.length)),
               const SliverToBoxAdapter(
                 child: Padding(
                   padding: EdgeInsets.only(bottom: 8.0),
@@ -48,7 +53,7 @@ class Checkout extends StatelessWidget {
                   ),
                 ),
               ),
-              SliverToBoxAdapter(child: PaymentTotal(total: 00.00),),
+              SliverToBoxAdapter(child: PaymentTotal(total: cartStore.purchaseTotal),),
               SliverFillRemaining(
                 hasScrollBody: false,
                 child: Align(
