@@ -41,7 +41,8 @@ class Home extends StatelessWidget {
                 alignment: Alignment.bottomCenter,
                 child: Observer(
                   builder: (_) =>
-                      InkWell(
+
+                      !cartStore.emptyList ? InkWell(
                     onTap: () {
                   
                     },
@@ -62,7 +63,7 @@ class Home extends StatelessWidget {
                                     Padding(
                                       padding: const EdgeInsets.only(right: 8.0),
                                       child: Text(
-                                        "${cartStore.items.length}",
+                                        "${cartStore.quantidyItem}",
                                         style: TextStyle(
                                           fontSize: 16,
                                           color: 
@@ -99,7 +100,7 @@ class Home extends StatelessWidget {
                                 ),
                               ),
                             ])),
-                  ),
+                  ) : Container(),
                 ),
               ),
             )

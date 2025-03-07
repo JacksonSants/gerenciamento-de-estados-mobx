@@ -9,6 +9,12 @@ abstract class _CartStore with Store {
   @observable
   List<Item> items = ObservableList<Item>();
 
+  @computed
+  int get quantidyItem => items.length;
+
+  @computed
+  bool get emptyList => items.isEmpty;
+
   @action
   void addCart(Item item) {
     items.add(item);
